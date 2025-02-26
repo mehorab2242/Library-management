@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -17,9 +19,16 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request):JsonResponse
     {
         //
+        $request->validate([
+           'title' => 'required|string|max:255',
+           'description' => 'nullable|string|max:1000',
+           'published_year' => 'required|integer|min:1800|max: ' .date('Y'),
+           'author_id' => 'required|exists:App\Models\Author,id',
+        ]);
+        return response()->json(Book::create($request->all()));
     }
 
     /**
