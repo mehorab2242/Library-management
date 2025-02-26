@@ -11,6 +11,7 @@ class AuthorController extends Controller
 {
     /**
      * Get All Authors
+     * @return JsonResponse
      */
     public function index(): JsonResponse
     {
@@ -19,7 +20,9 @@ class AuthorController extends Controller
     }
 
     /**
-     * Store a newly created author.
+     * Store a newly created author
+     * @param Request $request
+     * @return JsonResponse
      */
     public function store(Request $request): JsonResponse
     {
@@ -33,6 +36,8 @@ class AuthorController extends Controller
 
     /**
      * Display the single author with their books.
+     * @param int $id
+     * @return JsonResponse
      */
     public function show(int $id):JsonResponse
     {
@@ -42,6 +47,9 @@ class AuthorController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
      */
     public function update(Request $request, int $id):JsonResponse
     {
@@ -69,6 +77,8 @@ class AuthorController extends Controller
 
     /**
      * Delete an author
+     * @param int $id
+     * @return JsonResponse
      */
     public function destroy(int $id):JsonResponse
     {

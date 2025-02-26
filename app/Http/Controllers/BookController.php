@@ -12,6 +12,8 @@ class BookController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * @param Request $request
+     * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
     {
@@ -29,6 +31,8 @@ class BookController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * @param Request $request
+     * @return JsonResponse
      */
     public function store(Request $request):JsonResponse
     {
@@ -44,12 +48,14 @@ class BookController extends Controller
 
     /**
      * Display the specified resource.
+     * @param int $author_id
+     * @return JsonResponse
      */
-    public function show($author_id):JsonResponse
+    public function show(int $author_id):JsonResponse
     {
         //
         $rv = [
-            'author' => Author::find($author_id),
+            'author' => Author::findOrFail($author_id),
             'books' => [],
         ];
         $rv['books'] = Book::where('author_id', $author_id)->get();
@@ -58,8 +64,11 @@ class BookController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function update(Request $request, $id):JsonResponse
+    public function update(Request $request, int $id):JsonResponse
     {
         //
         $book = Book::findOrFail($id);
@@ -79,8 +88,10 @@ class BookController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * @param int $id
+     * @return JsonResponse
      */
-    public function destroy($id): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         //
         try {
